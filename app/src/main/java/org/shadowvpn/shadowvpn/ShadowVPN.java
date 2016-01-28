@@ -7,14 +7,14 @@ import java.io.IOException;
 
 public class ShadowVPN
 {
-	private static final int DEFAULT_MAXIMUM_TRANSMISSION_UNITS = 1440;
+	private static final int DEFAULT_MAXIMUM_TRANSMISSION_UNITS = 1432;
 
 	private static final int DEFAULT_CONCURRENCY = 1;
 
 	private final ParcelFileDescriptor mTUNFileDescriptor;
 
 	private final String mPassword;
-	
+
 	private final String mUserToken;
 
 	private final String mServer;

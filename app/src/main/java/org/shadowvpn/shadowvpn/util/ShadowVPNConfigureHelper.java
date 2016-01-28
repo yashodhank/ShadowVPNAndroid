@@ -12,7 +12,7 @@ public class ShadowVPNConfigureHelper
 {
 	public static final String DEFAULT_LOCAL_IP = "10.7.0.2";
 
-	public static final int DEFAULT_MAXIMUM_TRANSMISSION_UNITS = 1440;
+	public static final int DEFAULT_MAXIMUM_TRANSMISSION_UNITS = 1432;
 
 	public static final int DEFAULT_CONCURRENCY = 1;
 
