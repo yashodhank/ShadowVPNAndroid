@@ -102,8 +102,8 @@ public class ShadowVPNConfigureHelper {
         final Realm realm = Realm.getInstance(pContext);
         realm.beginTransaction();
 
-        for (final ShadowVPNConfigure configure : shadowVPNConfigureRealmResults) {
-            configure.setSelected(false);
+        for (int i = 0; i < shadowVPNConfigureRealmResults.size(); i++) {
+            shadowVPNConfigureRealmResults.get(i).setSelected(false);
         }
 
         realm.commitTransaction();
