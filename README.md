@@ -3,14 +3,7 @@ ShadowVPN for Android
 
 [ShadowVPN] for Android. Still in progress.
 
-[![Build Status](https://travis-ci.org/clowwindy/ShadowVPNAndroid.svg?branch=master)](https://travis-ci.org/clowwindy/ShadowVPNAndroid)
-
-Download
---------
-
-ShadowVPN is in beta and may have bugs. If you still want to have a try:
-
-[Download beta].
+[![Build Status](https://api.travis-ci.org/pexcn/ShadowVPNAndroid.svg)](https://travis-ci.org/pexcn/ShadowVPNAndroid)
 
 How to build ShadowVPN
 ----------------------
@@ -67,6 +60,15 @@ This is a Gradle-based project that works best with [Android Studio].
         gradle installDebug
 
 
-[ShadowVPN]: https://github.com/clowwindy/ShadowVPN
-[Download beta]: https://play.google.com/store/apps/details?id=clowwindy.shadowvpn
+About this forked version
+-------------------------
+
+This version was forked from [Origin ShadowVPN for Android], the origin developer is [clowwindy]. Thanks him, my hero.  
+I increase the user interface design working in progress.
+
+（不会英文，但是为了保持和原来一样的风格强行用英文写了...感觉好丢人啊...）
+
+[ShadowVPN]: https://github.com/pexcn/ShadowVPN
 [Android Studio]:http://developer.android.com/sdk/installing/studio.html
+[Origin ShadowVPN for Android]: https://github.com/clowwindy/ShadowVPNAndroid
+[clowwindy]: https://github.com/clowwindy
