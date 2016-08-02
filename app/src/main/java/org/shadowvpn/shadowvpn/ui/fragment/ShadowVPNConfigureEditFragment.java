@@ -18,261 +18,227 @@ import org.shadowvpn.shadowvpn.R;
 import org.shadowvpn.shadowvpn.model.ShadowVPNConfigure;
 import org.shadowvpn.shadowvpn.util.ShadowVPNConfigureHelper;
 
-public class ShadowVPNConfigureEditFragment extends Fragment
-{
-	private static final String KEY_TITLE = "key_title";
+public class ShadowVPNConfigureEditFragment extends Fragment {
+    private static final String KEY_TITLE = "key_title";
 
-	public static ShadowVPNConfigureEditFragment newInstance()
-	{
-		return ShadowVPNConfigureEditFragment.newInstance(null);
-	}
+    public static ShadowVPNConfigureEditFragment newInstance() {
+        return ShadowVPNConfigureEditFragment.newInstance(null);
+    }
 
-	public static ShadowVPNConfigureEditFragment newInstance(final String pTitle)
-	{
-		final ShadowVPNConfigureEditFragment fragment = new ShadowVPNConfigureEditFragment();
+    public static ShadowVPNConfigureEditFragment newInstance(final String pTitle) {
+        final ShadowVPNConfigureEditFragment fragment = new ShadowVPNConfigureEditFragment();
 
-		final Bundle arguments = new Bundle();
-		arguments.putString(ShadowVPNConfigureEditFragment.KEY_TITLE, pTitle);
-		fragment.setArguments(arguments);
+        final Bundle arguments = new Bundle();
+        arguments.putString(ShadowVPNConfigureEditFragment.KEY_TITLE, pTitle);
+        fragment.setArguments(arguments);
 
-		return fragment;
-	}
+        return fragment;
+    }
 
-	private String mTitle;
+    private String mTitle;
 
-	private FloatingLabelEditText mTitleText;
+    private FloatingLabelEditText mTitleText;
 
-	private FloatingLabelEditText mServerIPText;
+    private FloatingLabelEditText mServerIPText;
 
-	private FloatingLabelEditText mPortText;
+    private FloatingLabelEditText mPortText;
 
-	private FloatingLabelEditText mPasswordText;
-	
-	private FloatingLabelEditText mUserTokenText;
-	
-	private FloatingLabelEditText mLocalIPText;
+    private FloatingLabelEditText mPasswordText;
 
-	private FloatingLabelEditText mMaximumTransmissionUnitsText;
+    private FloatingLabelEditText mUserTokenText;
 
-	private FloatingLabelEditText mConcurrency;
+    private FloatingLabelEditText mLocalIPText;
 
-	private SwitchCompat mBypassChinaRoutesSwitch;
+    private FloatingLabelEditText mMaximumTransmissionUnitsText;
 
-	@Override
-	public void onCreate(final Bundle pSavedInstanceState)
-	{
-		super.onCreate(pSavedInstanceState);
+    private FloatingLabelEditText mConcurrency;
 
-		this.setHasOptionsMenu(true);
+    private SwitchCompat mBypassChinaRoutesSwitch;
 
-		if (this.getArguments() != null)
-		{
-			this.mTitle = this.getArguments().getString(ShadowVPNConfigureEditFragment.KEY_TITLE);
-		}
-	}
+    @Override
+    public void onCreate(final Bundle pSavedInstanceState) {
+        super.onCreate(pSavedInstanceState);
 
-	@Override
-	public View onCreateView(final LayoutInflater pLayoutInflater, final ViewGroup pContainer, final Bundle pSavedInstanceState)
-	{
-		final View view = pLayoutInflater.inflate(R.layout.fragment_shadow_vpn_configure_edit, pContainer, false);
+        this.setHasOptionsMenu(true);
 
-		this.mTitleText = (FloatingLabelEditText) view.findViewById(R.id.text_title);
-		this.mServerIPText = (FloatingLabelEditText) view.findViewById(R.id.text_server_ip);
-		this.mPortText = (FloatingLabelEditText) view.findViewById(R.id.text_port);
-		this.mPasswordText = (FloatingLabelEditText) view.findViewById(R.id.text_password);
-		this.mUserTokenText = (FloatingLabelEditText) view.findViewById(R.id.text_user_token);
-		this.mLocalIPText = (FloatingLabelEditText) view.findViewById(R.id.text_local_ip);
-		this.mMaximumTransmissionUnitsText = (FloatingLabelEditText) view.findViewById(R.id.text_maximum_transmission_units);
-		this.mConcurrency = (FloatingLabelEditText) view.findViewById(R.id.text_concurrency);
-		this.mBypassChinaRoutesSwitch = (SwitchCompat) view.findViewById(R.id.switch_bypass_china_routes);
+        if (this.getArguments() != null) {
+            this.mTitle = this.getArguments().getString(ShadowVPNConfigureEditFragment.KEY_TITLE);
+        }
+    }
 
-		if (TextUtils.isEmpty(this.mTitle))
-		{
-			this.mPortText.setInputWidgetText(String.valueOf(0));
-			this.mLocalIPText.setInputWidgetText(ShadowVPNConfigureHelper.DEFAULT_LOCAL_IP);
-			this.mMaximumTransmissionUnitsText.setInputWidgetText(String.valueOf(ShadowVPNConfigureHelper.DEFAULT_MAXIMUM_TRANSMISSION_UNITS));
-			this.mConcurrency.setInputWidgetText(String.valueOf(ShadowVPNConfigureHelper.DEFAULT_CONCURRENCY));
-		}
-		else
-		{
-			final ShadowVPNConfigure configure = ShadowVPNConfigureHelper.exists(this.getActivity(), this.mTitle);
+    @Override
+    public View onCreateView(final LayoutInflater pLayoutInflater, final ViewGroup pContainer, final Bundle pSavedInstanceState) {
+        final View view = pLayoutInflater.inflate(R.layout.fragment_shadow_vpn_configure_edit, pContainer, false);
 
-			this.mTitleText.setInputWidgetText(configure.getTitle());
-			this.mServerIPText.setInputWidgetText(configure.getServerIP());
-			this.mPortText.setInputWidgetText(String.valueOf(configure.getPort()));
-			this.mPasswordText.setInputWidgetText(configure.getPassword());
-			this.mUserTokenText.setInputWidgetText(configure.getUserToken());
-			this.mLocalIPText.setInputWidgetText(configure.getLocalIP());
-			this.mMaximumTransmissionUnitsText.setInputWidgetText(String.valueOf(configure.getMaximumTransmissionUnits()));
-			this.mConcurrency.setInputWidgetText(String.valueOf(configure.getConcurrency()));
-			this.mBypassChinaRoutesSwitch.setChecked(configure.isBypassChinaRoutes());
-		}
+        this.mTitleText = (FloatingLabelEditText) view.findViewById(R.id.text_title);
+        this.mServerIPText = (FloatingLabelEditText) view.findViewById(R.id.text_server_ip);
+        this.mPortText = (FloatingLabelEditText) view.findViewById(R.id.text_port);
+        this.mPasswordText = (FloatingLabelEditText) view.findViewById(R.id.text_password);
+        this.mUserTokenText = (FloatingLabelEditText) view.findViewById(R.id.text_user_token);
+        this.mLocalIPText = (FloatingLabelEditText) view.findViewById(R.id.text_local_ip);
+        this.mMaximumTransmissionUnitsText = (FloatingLabelEditText) view.findViewById(R.id.text_maximum_transmission_units);
+        this.mConcurrency = (FloatingLabelEditText) view.findViewById(R.id.text_concurrency);
+        this.mBypassChinaRoutesSwitch = (SwitchCompat) view.findViewById(R.id.switch_bypass_china_routes);
 
-		return view;
-	}
+        if (TextUtils.isEmpty(this.mTitle)) {
+            this.mPortText.setInputWidgetText(String.valueOf(0));
+            this.mLocalIPText.setInputWidgetText(ShadowVPNConfigureHelper.DEFAULT_LOCAL_IP);
+            this.mMaximumTransmissionUnitsText.setInputWidgetText(String.valueOf(ShadowVPNConfigureHelper.DEFAULT_MAXIMUM_TRANSMISSION_UNITS));
+            this.mConcurrency.setInputWidgetText(String.valueOf(ShadowVPNConfigureHelper.DEFAULT_CONCURRENCY));
+        } else {
+            final ShadowVPNConfigure configure = ShadowVPNConfigureHelper.exists(this.getActivity(), this.mTitle);
 
-	@Override
-	public void onCreateOptionsMenu(final Menu pMenu, final MenuInflater pMenuInflater)
-	{
-		pMenuInflater.inflate(R.menu.fragment_shadow_vpnconfigure_edit, pMenu);
-	}
+            this.mTitleText.setInputWidgetText(configure.getTitle());
+            this.mServerIPText.setInputWidgetText(configure.getServerIP());
+            this.mPortText.setInputWidgetText(String.valueOf(configure.getPort()));
+            this.mPasswordText.setInputWidgetText(configure.getPassword());
+            this.mUserTokenText.setInputWidgetText(configure.getUserToken());
+            this.mLocalIPText.setInputWidgetText(configure.getLocalIP());
+            this.mMaximumTransmissionUnitsText.setInputWidgetText(String.valueOf(configure.getMaximumTransmissionUnits()));
+            this.mConcurrency.setInputWidgetText(String.valueOf(configure.getConcurrency()));
+            this.mBypassChinaRoutesSwitch.setChecked(configure.isBypassChinaRoutes());
+        }
 
-	@Override
-	public void onPrepareOptionsMenu(final Menu pMenu)
-	{
-		pMenu.findItem(R.id.menu_delete).setVisible(!TextUtils.isEmpty(this.mTitle));
+        return view;
+    }
 
-		super.onPrepareOptionsMenu(pMenu);
-	}
+    @Override
+    public void onCreateOptionsMenu(final Menu pMenu, final MenuInflater pMenuInflater) {
+        pMenuInflater.inflate(R.menu.fragment_shadow_vpnconfigure_edit, pMenu);
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(final MenuItem pMenuItem)
-	{
-		switch (pMenuItem.getItemId())
-		{
-			case android.R.id.home:
-				if (TextUtils.isEmpty(this.mTitle))
-				{
-					if (this.createShadowVPNConfigure())
-					{
-						this.getActivity().finish();
-					}
-				}
-				else
-				{
-					if (this.updateShadowVPNConfigure())
-					{
-						this.getActivity().finish();
-					}
-				}
-				return true;
-			case R.id.menu_discard:
-				this.getActivity().finish();
-				return true;
-			case R.id.menu_delete:
-				ShadowVPNConfigureHelper.delete(this.getActivity(), this.mTitle);
-				this.getActivity().finish();
-				return true;
-			default:
-				return super.onOptionsItemSelected(pMenuItem);
-		}
-	}
+    @Override
+    public void onPrepareOptionsMenu(final Menu pMenu) {
+        pMenu.findItem(R.id.menu_delete).setVisible(!TextUtils.isEmpty(this.mTitle));
 
-	private boolean createShadowVPNConfigure()
-	{
-		final boolean inputResult = this.checkInput();
+        super.onPrepareOptionsMenu(pMenu);
+    }
 
-		if (inputResult)
-		{
-			final boolean existsResult = this.checkConfigureExists();
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem pMenuItem) {
+        switch (pMenuItem.getItemId()) {
+            case android.R.id.home:
+                if (TextUtils.isEmpty(this.mTitle)) {
+                    if (this.createShadowVPNConfigure()) {
+                        this.getActivity().finish();
+                    }
+                } else {
+                    if (this.updateShadowVPNConfigure()) {
+                        this.getActivity().finish();
+                    }
+                }
+                return true;
+            case R.id.menu_discard:
+                this.getActivity().finish();
+                return true;
+            case R.id.menu_delete:
+                ShadowVPNConfigureHelper.delete(this.getActivity(), this.mTitle);
+                this.getActivity().finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(pMenuItem);
+        }
+    }
 
-			if (!existsResult)
-			{
-				final String title = this.mTitleText.getInputWidgetText().toString();
-				final String serverIP = this.mServerIPText.getInputWidgetText().toString();
-				final int port = Integer.parseInt(this.mPortText.getInputWidgetText().toString());
-				final String password = this.mPasswordText.getInputWidgetText().toString();
-				final String userToken = this.mUserTokenText.getInputWidgetText().toString();
-				final String localIP = this.mLocalIPText.getInputWidgetText().toString();
-				final int maximumTransmissionUnits = Integer.parseInt(this.mMaximumTransmissionUnitsText.getInputWidgetText().toString());
-				final int concurrency = Integer.parseInt(this.mConcurrency.getInputWidgetText().toString());
-				final boolean bypassChinaRoutes = this.mBypassChinaRoutesSwitch.isChecked();
+    private boolean createShadowVPNConfigure() {
+        final boolean inputResult = this.checkInput();
 
-				ShadowVPNConfigureHelper.create(this.getActivity(), title, serverIP, port, password, userToken, localIP, maximumTransmissionUnits, concurrency, bypassChinaRoutes);
+        if (inputResult) {
+            final boolean existsResult = this.checkConfigureExists();
 
-				return true;
-			}
-		}
+            if (!existsResult) {
+                final String title = this.mTitleText.getInputWidgetText().toString();
+                final String serverIP = this.mServerIPText.getInputWidgetText().toString();
+                final int port = Integer.parseInt(this.mPortText.getInputWidgetText().toString());
+                final String password = this.mPasswordText.getInputWidgetText().toString();
+                final String userToken = this.mUserTokenText.getInputWidgetText().toString();
+                final String localIP = this.mLocalIPText.getInputWidgetText().toString();
+                final int maximumTransmissionUnits = Integer.parseInt(this.mMaximumTransmissionUnitsText.getInputWidgetText().toString());
+                final int concurrency = Integer.parseInt(this.mConcurrency.getInputWidgetText().toString());
+                final boolean bypassChinaRoutes = this.mBypassChinaRoutesSwitch.isChecked();
 
-		return false;
-	}
+                ShadowVPNConfigureHelper.create(this.getActivity(), title, serverIP, port, password, userToken, localIP, maximumTransmissionUnits, concurrency, bypassChinaRoutes);
 
-	private boolean updateShadowVPNConfigure()
-	{
-		final boolean inputResult = this.checkInput();
+                return true;
+            }
+        }
 
-		if (inputResult)
-		{
-			final ShadowVPNConfigure shadowVPNConfigure = ShadowVPNConfigureHelper.exists(this.getActivity(), this.mTitle);
+        return false;
+    }
 
-			final String title = this.mTitleText.getInputWidgetText().toString();
-			final String serverIP = this.mServerIPText.getInputWidgetText().toString();
-			final int port = Integer.parseInt(this.mPortText.getInputWidgetText().toString());
-			final String password = this.mPasswordText.getInputWidgetText().toString();
-			final String userToken = this.mUserTokenText.getInputWidgetText().toString();
-			final String localIP = this.mLocalIPText.getInputWidgetText().toString();
-			final int maximumTransmissionUnits = Integer.parseInt(this.mMaximumTransmissionUnitsText.getInputWidgetText().toString());
-			final int concurrency = Integer.parseInt(this.mConcurrency.getInputWidgetText().toString());
-			final boolean bypassChinaRoutes = this.mBypassChinaRoutesSwitch.isChecked();
+    private boolean updateShadowVPNConfigure() {
+        final boolean inputResult = this.checkInput();
 
-			ShadowVPNConfigureHelper.update(this.getActivity(), shadowVPNConfigure, title, serverIP, port, password, userToken, localIP, maximumTransmissionUnits, concurrency, bypassChinaRoutes, shadowVPNConfigure.isSelected());
-		}
+        if (inputResult) {
+            final ShadowVPNConfigure shadowVPNConfigure = ShadowVPNConfigureHelper.exists(this.getActivity(), this.mTitle);
 
-		return inputResult;
-	}
+            final String title = this.mTitleText.getInputWidgetText().toString();
+            final String serverIP = this.mServerIPText.getInputWidgetText().toString();
+            final int port = Integer.parseInt(this.mPortText.getInputWidgetText().toString());
+            final String password = this.mPasswordText.getInputWidgetText().toString();
+            final String userToken = this.mUserTokenText.getInputWidgetText().toString();
+            final String localIP = this.mLocalIPText.getInputWidgetText().toString();
+            final int maximumTransmissionUnits = Integer.parseInt(this.mMaximumTransmissionUnitsText.getInputWidgetText().toString());
+            final int concurrency = Integer.parseInt(this.mConcurrency.getInputWidgetText().toString());
+            final boolean bypassChinaRoutes = this.mBypassChinaRoutesSwitch.isChecked();
 
-	private boolean checkInput()
-	{
-		if (TextUtils.isEmpty(this.mTitleText.getInputWidgetText().toString()))
-		{
-			Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_title_null, Toast.LENGTH_SHORT).show();
+            ShadowVPNConfigureHelper.update(this.getActivity(), shadowVPNConfigure, title, serverIP, port, password, userToken, localIP, maximumTransmissionUnits, concurrency, bypassChinaRoutes, shadowVPNConfigure.isSelected());
+        }
 
-			return false;
-		}
+        return inputResult;
+    }
 
-		if (TextUtils.isEmpty(this.mServerIPText.getInputWidgetText().toString()))
-		{
-			Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_server_ip_null, Toast.LENGTH_SHORT).show();
+    private boolean checkInput() {
+        if (TextUtils.isEmpty(this.mTitleText.getInputWidgetText().toString())) {
+            Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_title_null, Toast.LENGTH_SHORT).show();
 
-			return false;
-		}
+            return false;
+        }
 
-		if (TextUtils.isEmpty(this.mPortText.getInputWidgetText().toString()))
-		{
-			Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_port_null, Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(this.mServerIPText.getInputWidgetText().toString())) {
+            Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_server_ip_null, Toast.LENGTH_SHORT).show();
 
-			return false;
-		}
+            return false;
+        }
 
-		if (TextUtils.isEmpty(this.mPasswordText.getInputWidgetText().toString()))
-		{
-			Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_password_null, Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(this.mPortText.getInputWidgetText().toString())) {
+            Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_port_null, Toast.LENGTH_SHORT).show();
 
-			return false;
-		}
+            return false;
+        }
 
-		if (TextUtils.isEmpty(this.mLocalIPText.getInputWidgetText().toString()))
-		{
-			Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_local_ip_null, Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(this.mPasswordText.getInputWidgetText().toString())) {
+            Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_password_null, Toast.LENGTH_SHORT).show();
 
-			return false;
-		}
+            return false;
+        }
 
-		if (TextUtils.isEmpty(this.mMaximumTransmissionUnitsText.getInputWidgetText().toString()))
-		{
-			Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_maximum_transmission_units_null, Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(this.mLocalIPText.getInputWidgetText().toString())) {
+            Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_local_ip_null, Toast.LENGTH_SHORT).show();
 
-			return false;
-		}
+            return false;
+        }
 
-		return true;
-	}
+        if (TextUtils.isEmpty(this.mMaximumTransmissionUnitsText.getInputWidgetText().toString())) {
+            Toast.makeText(this.getActivity(), R.string.toast_vpn_configure_maximum_transmission_units_null, Toast.LENGTH_SHORT).show();
 
-	private boolean checkConfigureExists()
-	{
-		final String title = this.mTitleText.getInputWidgetText().toString();
+            return false;
+        }
 
-		final ShadowVPNConfigure configure = ShadowVPNConfigureHelper.exists(this.getActivity(), title);
+        return true;
+    }
 
-		if (configure != null)
-		{
-			Toast.makeText(this.getActivity(), this.getString(R.string.toast_vpn_configure_exists, title), Toast.LENGTH_SHORT).show();
+    private boolean checkConfigureExists() {
+        final String title = this.mTitleText.getInputWidgetText().toString();
 
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+        final ShadowVPNConfigure configure = ShadowVPNConfigureHelper.exists(this.getActivity(), title);
+
+        if (configure != null) {
+            Toast.makeText(this.getActivity(), this.getString(R.string.toast_vpn_configure_exists, title), Toast.LENGTH_SHORT).show();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
