@@ -4,102 +4,93 @@ import io.realm.RealmObject;
 
 public class ShadowVPNConfigure extends RealmObject {
     private String title;
-
     private String serverIP;
-
     private int port;
-
     private String password;
-
     private String userToken;
-
     private String localIP;
-
     private int maximumTransmissionUnits;
-
     private int concurrency;
-
     private boolean bypassChinaRoutes;
-
     private boolean selected;
 
     public String getTitle() {
         return this.title;
     }
 
-    public void setTitle(final String pTitle) {
-        this.title = pTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getServerIP() {
         return this.serverIP;
     }
 
-    public void setServerIP(final String pServerIP) {
-        this.serverIP = pServerIP;
+    public void setServerIP(String serverIP) {
+        this.serverIP = serverIP;
     }
 
     public int getPort() {
         return this.port;
     }
 
-    public void setPort(final int pPort) {
-        this.port = pPort;
+    public void setPort(int port) {
+        this.port = port;
     }
 
     public String getPassword() {
         return this.password;
     }
 
-    public void setPassword(final String pPassword) {
-        this.password = pPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserToken() {
         return this.userToken;
     }
 
-    public void setUserToken(final String pUserToken) {
-        this.userToken = pUserToken;
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
     }
 
     public String getLocalIP() {
         return this.localIP;
     }
 
-    public void setLocalIP(final String pLocalIP) {
-        this.localIP = pLocalIP;
+    public void setLocalIP(String localIP) {
+        this.localIP = localIP;
     }
 
     public int getMaximumTransmissionUnits() {
         return this.maximumTransmissionUnits;
     }
 
-    public void setMaximumTransmissionUnits(final int pMaximumTransmissionUnits) {
-        this.maximumTransmissionUnits = pMaximumTransmissionUnits;
+    public void setMaximumTransmissionUnits(int maximumTransmissionUnits) {
+        this.maximumTransmissionUnits = maximumTransmissionUnits;
     }
 
     public int getConcurrency() {
         return this.concurrency;
     }
 
-    public void setConcurrency(final int pConcurrency) {
-        this.concurrency = pConcurrency;
+    public void setConcurrency(int concurrency) {
+        this.concurrency = concurrency;
     }
 
     public boolean isBypassChinaRoutes() {
         return this.bypassChinaRoutes;
     }
 
-    public void setBypassChinaRoutes(final boolean pBypassChinaRoutes) {
-        this.bypassChinaRoutes = pBypassChinaRoutes;
+    public void setBypassChinaRoutes(boolean bypassChinaRoutes) {
+        this.bypassChinaRoutes = bypassChinaRoutes;
     }
 
     public boolean isSelected() {
         return this.selected;
     }
 
-    public void setSelected(final boolean pSelected) {
-        this.selected = pSelected;
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

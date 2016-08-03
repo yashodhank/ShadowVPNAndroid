@@ -2,33 +2,32 @@ package org.shadowvpn.shadowvpn.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import org.shadowvpn.shadowvpn.R;
 import org.shadowvpn.shadowvpn.ui.fragment.ShadowVPNConfigureEditFragment;
 
-public class ShadowVPNConfigureEditActivity extends ActionBarActivity {
+public class ShadowVPNConfigureEditActivity extends AppCompatActivity {
     public static final String EXTRA_TITLE = "extra_title";
 
     @Override
-    protected void onCreate(final Bundle pSavedInstanceState) {
-        super.onCreate(pSavedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_shadow_vpn_configure_edit);
 
-        this.setContentView(R.layout.activity_shadow_vpn_configure_edit);
+        Bundle extras = getIntent().getExtras();
 
-        final Bundle extras = this.getIntent().getExtras();
-
-        if (pSavedInstanceState == null) {
+        if (savedInstanceState == null) {
             if (extras == null) {
-                final Fragment editFragment = ShadowVPNConfigureEditFragment.newInstance();
+                Fragment editFragment = ShadowVPNConfigureEditFragment.newInstance();
 
-                this.getSupportFragmentManager().beginTransaction().add(R.id.container, editFragment).commit();
+                getSupportFragmentManager().beginTransaction().add(R.id.container, editFragment).commit();
             } else {
-                final String title = extras.getString(ShadowVPNConfigureEditActivity.EXTRA_TITLE);
+                String title = extras.getString(ShadowVPNConfigureEditActivity.EXTRA_TITLE);
 
-                final Fragment editFragment = ShadowVPNConfigureEditFragment.newInstance(title);
+                Fragment editFragment = ShadowVPNConfigureEditFragment.newInstance(title);
 
-                this.getSupportFragmentManager().beginTransaction().add(R.id.container, editFragment).commit();
+                getSupportFragmentManager().beginTransaction().add(R.id.container, editFragment).commit();
             }
         }
     }

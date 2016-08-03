@@ -1,4 +1,4 @@
-package clowwindy.shadowvpn;
+package org.shadowvpn.shadowvpn;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

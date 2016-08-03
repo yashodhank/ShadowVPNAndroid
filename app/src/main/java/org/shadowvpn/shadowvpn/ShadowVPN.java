@@ -7,84 +7,65 @@ import java.io.IOException;
 
 public class ShadowVPN {
     private static final int DEFAULT_MAXIMUM_TRANSMISSION_UNITS = 1432;
-
     private static final int DEFAULT_CONCURRENCY = 1;
 
-    private final ParcelFileDescriptor mTUNFileDescriptor;
-
-    private final String mPassword;
-
-    private final String mUserToken;
-
-    private final String mServer;
-
-    private final int mPort;
-
-    private final int mMaximumTransmissionUnits;
-
-    private final int mConcurrency;
-
+    private ParcelFileDescriptor mTUNFileDescriptor;
+    private String mPassword;
+    private String mUserToken;
+    private String mServer;
+    private int mPort;
+    private int mMaximumTransmissionUnits;
+    private int mConcurrency;
     private boolean mIsRunning;
 
-    public ShadowVPN(final ParcelFileDescriptor pTUNFileDescriptor, final String pPassword, final String pUserToken, final String pServer, final int pPort) {
-        this(pTUNFileDescriptor, pPassword, pUserToken, pServer, pPort, ShadowVPN.DEFAULT_MAXIMUM_TRANSMISSION_UNITS, ShadowVPN.DEFAULT_CONCURRENCY);
+    public ShadowVPN(ParcelFileDescriptor TUNFileDescriptor, String password, String userToken, String server, int port) {
+        this(TUNFileDescriptor, password, userToken, server, port, ShadowVPN.DEFAULT_MAXIMUM_TRANSMISSION_UNITS, ShadowVPN.DEFAULT_CONCURRENCY);
     }
 
-    public ShadowVPN(final ParcelFileDescriptor pTUNFileDescriptor, final String pPassword, final String pUserToken, final String pServer, final int pPort, final int pMaximumTransmissionUnits, final int pConcurrency) {
-        this.mTUNFileDescriptor = pTUNFileDescriptor;
-
-        this.mPassword = pPassword;
-
-        this.mUserToken = pUserToken;
-
-        this.mServer = pServer;
-
-        this.mPort = pPort;
-
-        this.mMaximumTransmissionUnits = pMaximumTransmissionUnits;
-
-        this.mConcurrency = pConcurrency;
+    public ShadowVPN(ParcelFileDescriptor TUNFileDescriptor, String password, String userToken, String server, int port, int maximumTransmissionUnits, int concurrency) {
+        mTUNFileDescriptor = TUNFileDescriptor;
+        mPassword = password;
+        mUserToken = userToken;
+        mServer = server;
+        mPort = port;
+        mMaximumTransmissionUnits = maximumTransmissionUnits;
+        mConcurrency = concurrency;
     }
 
     public void init() throws IOException {
-        if (this.nativeInitVPN(this.mTUNFileDescriptor.getFd(), this.mPassword, this.mUserToken, this.mServer, this.mPort, this.mMaximumTransmissionUnits, this.mConcurrency) != 0) {
+        if (nativeInitVPN(mTUNFileDescriptor.getFd(), mPassword, mUserToken, mServer, mPort, mMaximumTransmissionUnits, mConcurrency) != 0) {
             throw new IOException("Failed to create ShadowVPN");
         }
     }
 
     public void start() {
-        if (this.mIsRunning) {
+        if (mIsRunning) {
             return;
         }
-
-        this.mIsRunning = true;
-
-        this.nativeRunVPN();
-
-        this.mIsRunning = false;
+        mIsRunning = true;
+        nativeRunVPN();
+        mIsRunning = false;
     }
 
     public void shouldStop() {
-        this.mIsRunning = false;
-
-        this.nativeStopVPN();
-
+        mIsRunning = false;
+        nativeStopVPN();
         try {
-            this.mTUNFileDescriptor.close();
-        } catch (final IOException pIOException) {
-            Log.e(ShadowVPN.class.getSimpleName(), "", pIOException);
+            mTUNFileDescriptor.close();
+        } catch (IOException ioException) {
+            Log.e(ShadowVPN.class.getSimpleName(), "", ioException);
         }
     }
 
     public boolean isRunning() {
-        return this.mIsRunning;
+        return mIsRunning;
     }
 
     public int getSockFileDescriptor() {
-        return this.nativeGetSockFd();
+        return nativeGetSockFd();
     }
 
-    protected native int nativeInitVPN(final int pTUNFileDescriptor, final String pPassword, final String pUserToken, final String pServer, final int pPort, final int pMaximumTransmissionUnits, final int pConcurrency);
+    protected native int nativeInitVPN(int TUNFileDescriptor, String password, String userToken, String server, int port, int maximumTransmissionUnits, int concurrency);
 
     protected native int nativeRunVPN();
 

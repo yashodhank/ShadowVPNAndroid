@@ -17,61 +17,59 @@ import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
 public class ShadowVPNConfigureAdapter extends BaseAdapter implements RealmChangeListener {
-    private final Context mContext;
+    private Context mContext;
+    private RealmResults<ShadowVPNConfigure> mShadowVPNConfigures;
 
-    private final RealmResults<ShadowVPNConfigure> mShadowVPNConfigures;
+    public ShadowVPNConfigureAdapter(Context context, @NonNull RealmResults<ShadowVPNConfigure> shadowVPNConfigureRealmResults) {
+        mContext = context;
+        mShadowVPNConfigures = shadowVPNConfigureRealmResults;
 
-    public ShadowVPNConfigureAdapter(final Context pContext, @NonNull final RealmResults<ShadowVPNConfigure> pShadowVPNConfigureRealmResults) {
-        this.mContext = pContext;
-
-        this.mShadowVPNConfigures = pShadowVPNConfigureRealmResults;
-
-        Realm.getInstance(this.mContext).addChangeListener(this);
+        Realm.getInstance(mContext).addChangeListener(this);
     }
 
     public Context getContext() {
-        return this.mContext;
+        return mContext;
     }
 
     @Override
     public int getCount() {
-        return this.mShadowVPNConfigures.size();
+        return mShadowVPNConfigures.size();
     }
 
     @Override
-    public ShadowVPNConfigure getItem(final int pPosition) {
-        return this.mShadowVPNConfigures.get(pPosition);
+    public ShadowVPNConfigure getItem(int position) {
+        return mShadowVPNConfigures.get(position);
     }
 
     @Override
-    public long getItemId(final int pPosition) {
-        return pPosition;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
     public void onChange() {
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     @Override
-    public View getView(final int pPosition, final View pConvertView, final ViewGroup pParent) {
-        final View layout;
+    public View getView(int pPosition, View convertView, ViewGroup parent) {
+        View layout;
 
-        if (pConvertView == null) {
-            layout = LayoutInflater.from(this.mContext).inflate(R.layout.list_item_shadow_vpn_configure, pParent, false);
+        if (convertView == null) {
+            layout = LayoutInflater.from(mContext).inflate(R.layout.list_item_shadow_vpn_configure, parent, false);
 
-            final ViewHolder viewHolder = new ViewHolder();
+            ViewHolder viewHolder = new ViewHolder();
             viewHolder.icon = (ImageView) layout.findViewById(R.id.icon);
             viewHolder.title = (TextView) layout.findViewById(R.id.title);
             viewHolder.summary = (TextView) layout.findViewById(R.id.summary);
 
             layout.setTag(viewHolder);
         } else {
-            layout = pConvertView;
+            layout = convertView;
         }
 
-        final ViewHolder viewHolder = (ViewHolder) layout.getTag();
-        final ShadowVPNConfigure configure = this.getItem(pPosition);
+        ViewHolder viewHolder = (ViewHolder) layout.getTag();
+        ShadowVPNConfigure configure = getItem(pPosition);
 
         viewHolder.icon.setImageResource(configure.isSelected() ? R.drawable.ic_vpn_connected : R.drawable.ic_vpn_unconnected);
         viewHolder.title.setText(configure.getTitle());
