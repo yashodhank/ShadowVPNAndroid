@@ -11,10 +11,6 @@ android {
         versionCode 3
         versionName "0.2.1"
         resConfigs "en", "zh-rCN"
-
-        jackOptions {
-            enabled true
-        }
     }
 
     buildTypes {
@@ -31,11 +27,6 @@ android {
                 abiFilters 'armeabi', 'armeabi-v7a', 'mips', 'x86'
             }
         }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
