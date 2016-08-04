@@ -5,27 +5,27 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import org.shadowvpn.shadowvpn.R;
-import org.shadowvpn.shadowvpn.ui.fragment.ShadowVPNConfigureEditFragment;
+import org.shadowvpn.shadowvpn.ui.fragment.ConfigureEditFragment;
 
-public class ShadowVPNConfigureEditActivity extends AppCompatActivity {
+public class ConfigureEditActivity extends AppCompatActivity {
     public static final String EXTRA_TITLE = "extra_title";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shadow_vpn_configure_edit);
+        setContentView(R.layout.activity_configure_edit);
 
         Bundle extras = getIntent().getExtras();
 
         if (savedInstanceState == null) {
             if (extras == null) {
-                Fragment editFragment = ShadowVPNConfigureEditFragment.newInstance();
+                Fragment editFragment = ConfigureEditFragment.newInstance();
 
                 getSupportFragmentManager().beginTransaction().add(R.id.container, editFragment).commit();
             } else {
-                String title = extras.getString(ShadowVPNConfigureEditActivity.EXTRA_TITLE);
+                String title = extras.getString(ConfigureEditActivity.EXTRA_TITLE);
 
-                Fragment editFragment = ShadowVPNConfigureEditFragment.newInstance(title);
+                Fragment editFragment = ConfigureEditFragment.newInstance(title);
 
                 getSupportFragmentManager().beginTransaction().add(R.id.container, editFragment).commit();
             }

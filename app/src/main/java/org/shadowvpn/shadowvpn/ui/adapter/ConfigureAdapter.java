@@ -10,19 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.shadowvpn.shadowvpn.R;
-import org.shadowvpn.shadowvpn.model.ShadowVPNConfigure;
+import org.shadowvpn.shadowvpn.model.VpnConfigure;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
-public class ShadowVPNConfigureAdapter extends BaseAdapter implements RealmChangeListener {
+public class ConfigureAdapter extends BaseAdapter implements RealmChangeListener {
     private Context mContext;
-    private RealmResults<ShadowVPNConfigure> mShadowVPNConfigures;
+    private RealmResults<VpnConfigure> mVpnConfigures;
 
-    public ShadowVPNConfigureAdapter(Context context, @NonNull RealmResults<ShadowVPNConfigure> shadowVPNConfigureRealmResults) {
+    public ConfigureAdapter(Context context, @NonNull RealmResults<VpnConfigure> vpnConfigureRealmResults) {
         mContext = context;
-        mShadowVPNConfigures = shadowVPNConfigureRealmResults;
+        mVpnConfigures = vpnConfigureRealmResults;
 
         Realm.getInstance(mContext).addChangeListener(this);
     }
@@ -33,12 +33,12 @@ public class ShadowVPNConfigureAdapter extends BaseAdapter implements RealmChang
 
     @Override
     public int getCount() {
-        return mShadowVPNConfigures.size();
+        return mVpnConfigures.size();
     }
 
     @Override
-    public ShadowVPNConfigure getItem(int position) {
-        return mShadowVPNConfigures.get(position);
+    public VpnConfigure getItem(int position) {
+        return mVpnConfigures.get(position);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ShadowVPNConfigureAdapter extends BaseAdapter implements RealmChang
         View layout;
 
         if (convertView == null) {
-            layout = LayoutInflater.from(mContext).inflate(R.layout.list_item_shadow_vpn_configure, parent, false);
+            layout = LayoutInflater.from(mContext).inflate(R.layout.list_item_configure, parent, false);
 
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.icon = (ImageView) layout.findViewById(R.id.icon);
@@ -69,7 +69,7 @@ public class ShadowVPNConfigureAdapter extends BaseAdapter implements RealmChang
         }
 
         ViewHolder viewHolder = (ViewHolder) layout.getTag();
-        ShadowVPNConfigure configure = getItem(pPosition);
+        VpnConfigure configure = getItem(pPosition);
 
         viewHolder.icon.setImageResource(configure.isSelected() ? R.drawable.ic_vpn_connected : R.drawable.ic_vpn_unconnected);
         viewHolder.title.setText(configure.getTitle());

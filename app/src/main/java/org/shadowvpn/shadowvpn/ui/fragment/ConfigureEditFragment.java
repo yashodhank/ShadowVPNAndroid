@@ -15,21 +15,21 @@ import android.widget.Toast;
 import com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText;
 
 import org.shadowvpn.shadowvpn.R;
-import org.shadowvpn.shadowvpn.model.ShadowVPNConfigure;
-import org.shadowvpn.shadowvpn.utils.ShadowVPNConfigureHelper;
+import org.shadowvpn.shadowvpn.model.VpnConfigure;
+import org.shadowvpn.shadowvpn.utils.ConfigureHelper;
 
-public class ShadowVPNConfigureEditFragment extends Fragment {
+public class ConfigureEditFragment extends Fragment {
     private static final String KEY_TITLE = "key_title";
 
-    public static ShadowVPNConfigureEditFragment newInstance() {
-        return ShadowVPNConfigureEditFragment.newInstance(null);
+    public static ConfigureEditFragment newInstance() {
+        return ConfigureEditFragment.newInstance(null);
     }
 
-    public static ShadowVPNConfigureEditFragment newInstance(String title) {
-        ShadowVPNConfigureEditFragment fragment = new ShadowVPNConfigureEditFragment();
+    public static ConfigureEditFragment newInstance(String title) {
+        ConfigureEditFragment fragment = new ConfigureEditFragment();
 
         Bundle arguments = new Bundle();
-        arguments.putString(ShadowVPNConfigureEditFragment.KEY_TITLE, title);
+        arguments.putString(ConfigureEditFragment.KEY_TITLE, title);
         fragment.setArguments(arguments);
 
         return fragment;
@@ -52,13 +52,13 @@ public class ShadowVPNConfigureEditFragment extends Fragment {
         setHasOptionsMenu(true);
 
         if (getArguments() != null) {
-            mTitle = getArguments().getString(ShadowVPNConfigureEditFragment.KEY_TITLE);
+            mTitle = getArguments().getString(ConfigureEditFragment.KEY_TITLE);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = layoutInflater.inflate(R.layout.fragment_shadow_vpn_configure_edit, container, false);
+        View view = layoutInflater.inflate(R.layout.fragment_configure_edit, container, false);
 
         mTitleText = (FloatingLabelEditText) view.findViewById(R.id.text_title);
         mServerIPText = (FloatingLabelEditText) view.findViewById(R.id.text_server_ip);
@@ -72,11 +72,11 @@ public class ShadowVPNConfigureEditFragment extends Fragment {
 
         if (TextUtils.isEmpty(mTitle)) {
             mPortText.setInputWidgetText(String.valueOf(0));
-            mLocalIPText.setInputWidgetText(ShadowVPNConfigureHelper.DEFAULT_LOCAL_IP);
-            mMaximumTransmissionUnitsText.setInputWidgetText(String.valueOf(ShadowVPNConfigureHelper.DEFAULT_MAXIMUM_TRANSMISSION_UNITS));
-            mConcurrency.setInputWidgetText(String.valueOf(ShadowVPNConfigureHelper.DEFAULT_CONCURRENCY));
+            mLocalIPText.setInputWidgetText(ConfigureHelper.DEFAULT_LOCAL_IP);
+            mMaximumTransmissionUnitsText.setInputWidgetText(String.valueOf(ConfigureHelper.DEFAULT_MAXIMUM_TRANSMISSION_UNITS));
+            mConcurrency.setInputWidgetText(String.valueOf(ConfigureHelper.DEFAULT_CONCURRENCY));
         } else {
-            ShadowVPNConfigure configure = ShadowVPNConfigureHelper.exists(getActivity(), mTitle);
+            VpnConfigure configure = ConfigureHelper.exists(getActivity(), mTitle);
 
             mTitleText.setInputWidgetText(configure.getTitle());
             mServerIPText.setInputWidgetText(configure.getServerIP());
@@ -94,7 +94,7 @@ public class ShadowVPNConfigureEditFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.fragment_shadow_vpn_configure_edit, menu);
+        menuInflater.inflate(R.menu.fragment_configure_edit, menu);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class ShadowVPNConfigureEditFragment extends Fragment {
                 getActivity().finish();
                 return true;
             case R.id.menu_delete:
-                ShadowVPNConfigureHelper.delete(getActivity(), mTitle);
+                ConfigureHelper.delete(getActivity(), mTitle);
                 getActivity().finish();
                 return true;
             default:
@@ -146,7 +146,7 @@ public class ShadowVPNConfigureEditFragment extends Fragment {
                 int concurrency = Integer.parseInt(mConcurrency.getInputWidgetText().toString());
                 boolean bypassChinaRoutes = mBypassChinaRoutesSwitch.isChecked();
 
-                ShadowVPNConfigureHelper.create(getActivity(), title, serverIP, port, password, userToken, localIP, maximumTransmissionUnits, concurrency, bypassChinaRoutes);
+                ConfigureHelper.create(getActivity(), title, serverIP, port, password, userToken, localIP, maximumTransmissionUnits, concurrency, bypassChinaRoutes);
 
                 return true;
             }
@@ -159,7 +159,7 @@ public class ShadowVPNConfigureEditFragment extends Fragment {
         boolean inputResult = checkInput();
 
         if (inputResult) {
-            ShadowVPNConfigure shadowVPNConfigure = ShadowVPNConfigureHelper.exists(getActivity(), mTitle);
+            VpnConfigure vpnConfigure = ConfigureHelper.exists(getActivity(), mTitle);
 
             String title = mTitleText.getInputWidgetText().toString();
             String serverIP = mServerIPText.getInputWidgetText().toString();
@@ -171,7 +171,7 @@ public class ShadowVPNConfigureEditFragment extends Fragment {
             int concurrency = Integer.parseInt(mConcurrency.getInputWidgetText().toString());
             boolean bypassChinaRoutes = mBypassChinaRoutesSwitch.isChecked();
 
-            ShadowVPNConfigureHelper.update(getActivity(), shadowVPNConfigure, title, serverIP, port, password, userToken, localIP, maximumTransmissionUnits, concurrency, bypassChinaRoutes, shadowVPNConfigure.isSelected());
+            ConfigureHelper.update(getActivity(), vpnConfigure, title, serverIP, port, password, userToken, localIP, maximumTransmissionUnits, concurrency, bypassChinaRoutes, vpnConfigure.isSelected());
         }
 
         return inputResult;
@@ -220,7 +220,7 @@ public class ShadowVPNConfigureEditFragment extends Fragment {
     private boolean checkConfigureExists() {
         String title = mTitleText.getInputWidgetText().toString();
 
-        ShadowVPNConfigure configure = ShadowVPNConfigureHelper.exists(getActivity(), title);
+        VpnConfigure configure = ConfigureHelper.exists(getActivity(), title);
 
         if (configure != null) {
             Toast.makeText(getActivity(), getString(R.string.toast_vpn_configure_exists, title), Toast.LENGTH_SHORT).show();

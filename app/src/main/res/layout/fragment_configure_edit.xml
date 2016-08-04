@@ -109,7 +109,7 @@
                 android:id="@+id/switch_bypass_china_routes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true">
 
             </android.support.v7.widget.SwitchCompat>
@@ -117,9 +117,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/switch_bypass_china_routes"
+                android:layout_toStartOf="@id/switch_bypass_china_routes"
                 android:text="@string/label_configure_switch_bypass_china_routes"
                 android:textAppearance="?android:attr/textAppearanceListItem" />
 

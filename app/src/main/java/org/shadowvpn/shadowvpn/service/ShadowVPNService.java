@@ -17,7 +17,7 @@ import android.util.Log;
 
 import org.shadowvpn.shadowvpn.R;
 import org.shadowvpn.shadowvpn.ShadowVPN;
-import org.shadowvpn.shadowvpn.utils.ShadowVPNConfigureHelper;
+import org.shadowvpn.shadowvpn.utils.ConfigureHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -138,7 +138,7 @@ public class ShadowVPNService extends VpnService {
 
         protect(mShadowVPN.getSockFileDescriptor());
 
-        ShadowVPNConfigureHelper.selectShadowVPNConfigure(this, title);
+        ConfigureHelper.selectShadowVPNConfigure(this, title);
 
         mShadowVPN.start();
     }
@@ -175,7 +175,7 @@ public class ShadowVPNService extends VpnService {
     public void onDestroy() {
         mServiceLooper.quit();
 
-        ShadowVPNConfigureHelper.resetAllSelectedValue(this);
+        ConfigureHelper.resetAllSelectedValue(this);
 
         stopVPN();
     }

@@ -2,7 +2,7 @@ package org.shadowvpn.shadowvpn.model;
 
 import io.realm.RealmObject;
 
-public class ShadowVPNConfigure extends RealmObject {
+public class VpnConfigure extends RealmObject {
     private String title;
     private String serverIP;
     private int port;

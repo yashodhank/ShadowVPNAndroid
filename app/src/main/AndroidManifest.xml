@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="org.shadowvpn.shadowvpn.ui.activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +21,12 @@
         </activity>
 
         <activity
-            android:name="org.shadowvpn.shadowvpn.ui.activity.ShadowVPNConfigureEditActivity"
+            android:name=".ui.activity.ConfigureEditActivity"
             android:label="@string/title_activity_configure_edit"
             android:theme="@style/AppTheme.Edit" />
 
         <service
-            android:name="org.shadowvpn.shadowvpn.service.ShadowVPNService"
+            android:name=".service.ShadowVPNService"
             android:exported="false"
             android:permission="android.permission.BIND_VPN_SERVICE">
             <intent-filter>

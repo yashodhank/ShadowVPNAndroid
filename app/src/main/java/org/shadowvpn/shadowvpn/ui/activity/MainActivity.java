@@ -11,18 +11,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.shadowvpn.shadowvpn.R;
-import org.shadowvpn.shadowvpn.model.ShadowVPNConfigure;
+import org.shadowvpn.shadowvpn.model.VpnConfigure;
 import org.shadowvpn.shadowvpn.service.ShadowVPNService;
 import org.shadowvpn.shadowvpn.service.ShadowVPNService.ShadowVPNServiceBinder;
-import org.shadowvpn.shadowvpn.ui.fragment.ShadowVPNListFragment;
-import org.shadowvpn.shadowvpn.ui.fragment.ShadowVPNListFragment.IOnFragmentInteractionListener;
+import org.shadowvpn.shadowvpn.ui.fragment.ListFragment;
+import org.shadowvpn.shadowvpn.ui.fragment.ListFragment.IOnFragmentInteractionListener;
 import org.shadowvpn.shadowvpn.utils.Intents;
-import org.shadowvpn.shadowvpn.utils.ShadowVPNConfigureHelper;
+import org.shadowvpn.shadowvpn.utils.ConfigureHelper;
 
 public class MainActivity extends AppCompatActivity implements IOnFragmentInteractionListener, ServiceConnection {
     private static final int REQUEST_CODE_VPN_PREPARE = 1;
     private ShadowVPNService mShadowVPNService;
-    private ShadowVPNConfigure mCurrentSelectedShadowVPNConfigure;
+    private VpnConfigure mCurrentSelectedVpnConfigure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements IOnFragmentIntera
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, ShadowVPNListFragment.newInstance())
+                    .add(R.id.container, ListFragment.newInstance())
                     .commit();
         }
     }
@@ -78,29 +78,29 @@ public class MainActivity extends AppCompatActivity implements IOnFragmentIntera
     }
 
     @Override
-    public void onShadowVPNConfigureClick(ShadowVPNConfigure shadowVPNConfigure) {
-        mCurrentSelectedShadowVPNConfigure = shadowVPNConfigure;
+    public void onShadowVPNConfigureClick(VpnConfigure vpnConfigure) {
+        mCurrentSelectedVpnConfigure = vpnConfigure;
 
-        if (!mCurrentSelectedShadowVPNConfigure.isSelected()) {
+        if (!mCurrentSelectedVpnConfigure.isSelected()) {
             prepareShadowVPN();
         }
     }
 
     @Override
-    public void onShadowVPNConfigureStop(ShadowVPNConfigure shadowVPNConfigure) {
+    public void onShadowVPNConfigureStop(VpnConfigure vpnConfigure) {
         if (mShadowVPNService != null) {
             mShadowVPNService.stopVPN();
         }
     }
 
     @Override
-    public void onShadowVPNConfigureEdit(ShadowVPNConfigure shadowVPNConfigure) {
-        Intents.editShadowVPNConfigure(this, shadowVPNConfigure);
+    public void onShadowVPNConfigureEdit(VpnConfigure vpnConfigure) {
+        Intents.editShadowVPNConfigure(this, vpnConfigure);
     }
 
     @Override
-    public void onShadowVPNConfigureDelete(ShadowVPNConfigure shadowVPNConfigure) {
-        ShadowVPNConfigureHelper.delete(this, shadowVPNConfigure.getTitle());
+    public void onShadowVPNConfigureDelete(VpnConfigure vpnConfigure) {
+        ConfigureHelper.delete(this, vpnConfigure.getTitle());
     }
 
     @Override
@@ -123,17 +123,17 @@ public class MainActivity extends AppCompatActivity implements IOnFragmentIntera
     }
 
     private void startShadowVPN() {
-        if (mCurrentSelectedShadowVPNConfigure != null) {
+        if (mCurrentSelectedVpnConfigure != null) {
             Intent intent = new Intent(this, ShadowVPNService.class);
-            intent.putExtra(ShadowVPNService.EXTRA_VPN_TITLE, mCurrentSelectedShadowVPNConfigure.getTitle());
-            intent.putExtra(ShadowVPNService.EXTRA_VPN_SERVER_IP, mCurrentSelectedShadowVPNConfigure.getServerIP());
-            intent.putExtra(ShadowVPNService.EXTRA_VPN_PORT, mCurrentSelectedShadowVPNConfigure.getPort());
-            intent.putExtra(ShadowVPNService.EXTRA_VPN_PASSWORD, mCurrentSelectedShadowVPNConfigure.getPassword());
-            intent.putExtra(ShadowVPNService.EXTRA_VPN_USER_TOKEN, mCurrentSelectedShadowVPNConfigure.getUserToken());
-            intent.putExtra(ShadowVPNService.EXTRA_VPN_LOCAL_IP, mCurrentSelectedShadowVPNConfigure.getLocalIP());
-            intent.putExtra(ShadowVPNService.EXTRA_VPN_MAXIMUM_TRANSMISSION_UNITS, mCurrentSelectedShadowVPNConfigure.getMaximumTransmissionUnits());
-            intent.putExtra(ShadowVPNService.EXTRA_VPN_CONCURRENCY, mCurrentSelectedShadowVPNConfigure.getConcurrency());
-            intent.putExtra(ShadowVPNService.EXTRA_VPN_BYPASS_CHINA_ROUTES, mCurrentSelectedShadowVPNConfigure.isBypassChinaRoutes());
+            intent.putExtra(ShadowVPNService.EXTRA_VPN_TITLE, mCurrentSelectedVpnConfigure.getTitle());
+            intent.putExtra(ShadowVPNService.EXTRA_VPN_SERVER_IP, mCurrentSelectedVpnConfigure.getServerIP());
+            intent.putExtra(ShadowVPNService.EXTRA_VPN_PORT, mCurrentSelectedVpnConfigure.getPort());
+            intent.putExtra(ShadowVPNService.EXTRA_VPN_PASSWORD, mCurrentSelectedVpnConfigure.getPassword());
+            intent.putExtra(ShadowVPNService.EXTRA_VPN_USER_TOKEN, mCurrentSelectedVpnConfigure.getUserToken());
+            intent.putExtra(ShadowVPNService.EXTRA_VPN_LOCAL_IP, mCurrentSelectedVpnConfigure.getLocalIP());
+            intent.putExtra(ShadowVPNService.EXTRA_VPN_MAXIMUM_TRANSMISSION_UNITS, mCurrentSelectedVpnConfigure.getMaximumTransmissionUnits());
+            intent.putExtra(ShadowVPNService.EXTRA_VPN_CONCURRENCY, mCurrentSelectedVpnConfigure.getConcurrency());
+            intent.putExtra(ShadowVPNService.EXTRA_VPN_BYPASS_CHINA_ROUTES, mCurrentSelectedVpnConfigure.isBypassChinaRoutes());
 
             startService(intent);
             bindService(intent, this, Context.BIND_AUTO_CREATE);
