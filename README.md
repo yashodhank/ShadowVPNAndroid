@@ -66,8 +66,6 @@ About this forked version
 This version was forked from [Origin ShadowVPN for Android], the origin developer is [clowwindy]. Thanks him, my hero.  
 I increase the user interface design working in progress.
 
-（不会英文，但是为了保持和原来一样的风格强行用英文写了...感觉好丢人啊...）
-
 [ShadowVPN]: https://github.com/pexcn/ShadowVPN
 [Android Studio]:http://developer.android.com/sdk/installing/studio.html
 [Origin ShadowVPN for Android]: https://github.com/clowwindy/ShadowVPNAndroid
