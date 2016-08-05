@@ -8,8 +8,8 @@ android {
         applicationId "org.shadowvpn.shadowvpn"
         minSdkVersion 21
         targetSdkVersion 23
-        versionCode 3
-        versionName "0.2.1"
+        versionCode 4
+        versionName "0.2.1.1"
         resConfigs "en", "zh-rCN"
     }
 
