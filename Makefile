@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 all: app/src/main/jniLibs/armeabi/libvpn.so
 
 .PHONY: clean
