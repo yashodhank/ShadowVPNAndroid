@@ -2,6 +2,7 @@ package org.shadowvpn.shadowvpn.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -15,13 +16,13 @@ import org.shadowvpn.shadowvpn.model.VpnConfigure;
 import org.shadowvpn.shadowvpn.ui.adapter.ConfigureAdapter;
 import org.shadowvpn.shadowvpn.utils.ConfigureHelper;
 
-public class ListFragment extends android.support.v4.app.ListFragment {
+public class ConfigureListFragment extends ListFragment {
     private static final int MENU_ID_STOP = 0x01;
     private static final int MENU_ID_EDIT = 0x02;
     private static final int MENU_ID_DELETE = 0x03;
 
-    public static ListFragment newInstance() {
-        ListFragment fragment = new ListFragment();
+    public static ConfigureListFragment newInstance() {
+        ConfigureListFragment fragment = new ConfigureListFragment();
         Bundle arguments = new Bundle();
         fragment.setArguments(arguments);
         return fragment;
@@ -30,7 +31,7 @@ public class ListFragment extends android.support.v4.app.ListFragment {
     private ConfigureAdapter mConfigureAdapter;
     private IOnFragmentInteractionListener mListener;
 
-    public ListFragment() {
+    public ConfigureListFragment() {
     }
 
     @Override
@@ -39,7 +40,7 @@ public class ListFragment extends android.support.v4.app.ListFragment {
 
         try {
             mListener = (IOnFragmentInteractionListener) context;
-        } catch (final ClassCastException e) {
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnFragmentInteractionListener");
         }
     }
@@ -90,10 +91,10 @@ public class ListFragment extends android.support.v4.app.ListFragment {
         contextMenu.setHeaderTitle(configure.getTitle());
 
         if (configure.isSelected()) {
-            contextMenu.add(Menu.NONE, ListFragment.MENU_ID_STOP, ListFragment.MENU_ID_STOP, R.string.context_menu_stop_configure);
+            contextMenu.add(Menu.NONE, ConfigureListFragment.MENU_ID_STOP, ConfigureListFragment.MENU_ID_STOP, R.string.context_menu_stop_configure);
         } else {
-            contextMenu.add(Menu.NONE, ListFragment.MENU_ID_EDIT, ListFragment.MENU_ID_EDIT, R.string.context_menu_edit_configure);
-            contextMenu.add(Menu.NONE, ListFragment.MENU_ID_DELETE, ListFragment.MENU_ID_DELETE, R.string.context_menu_delete_configure);
+            contextMenu.add(Menu.NONE, ConfigureListFragment.MENU_ID_EDIT, ConfigureListFragment.MENU_ID_EDIT, R.string.context_menu_edit_configure);
+            contextMenu.add(Menu.NONE, ConfigureListFragment.MENU_ID_DELETE, ConfigureListFragment.MENU_ID_DELETE, R.string.context_menu_delete_configure);
         }
     }
 
@@ -104,17 +105,17 @@ public class ListFragment extends android.support.v4.app.ListFragment {
         VpnConfigure configure = mConfigureAdapter.getItem(menuInfo.position);
 
         switch (menuItem.getItemId()) {
-            case ListFragment.MENU_ID_STOP:
+            case ConfigureListFragment.MENU_ID_STOP:
                 if (mListener != null) {
                     mListener.onShadowVPNConfigureStop(configure);
                 }
                 return true;
-            case ListFragment.MENU_ID_EDIT:
+            case ConfigureListFragment.MENU_ID_EDIT:
                 if (mListener != null) {
                     mListener.onShadowVPNConfigureEdit(configure);
                 }
                 return true;
-            case ListFragment.MENU_ID_DELETE:
+            case ConfigureListFragment.MENU_ID_DELETE:
                 if (mListener != null) {
                     mListener.onShadowVPNConfigureDelete(configure);
                 }

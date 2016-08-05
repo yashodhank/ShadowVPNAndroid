@@ -14,8 +14,8 @@ import org.shadowvpn.shadowvpn.R;
 import org.shadowvpn.shadowvpn.model.VpnConfigure;
 import org.shadowvpn.shadowvpn.service.ShadowVPNService;
 import org.shadowvpn.shadowvpn.service.ShadowVPNService.ShadowVPNServiceBinder;
-import org.shadowvpn.shadowvpn.ui.fragment.ListFragment;
-import org.shadowvpn.shadowvpn.ui.fragment.ListFragment.IOnFragmentInteractionListener;
+import org.shadowvpn.shadowvpn.ui.fragment.ConfigureListFragment;
+import org.shadowvpn.shadowvpn.ui.fragment.ConfigureListFragment.IOnFragmentInteractionListener;
 import org.shadowvpn.shadowvpn.utils.Intents;
 import org.shadowvpn.shadowvpn.utils.ConfigureHelper;
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements IOnFragmentIntera
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, ListFragment.newInstance())
+                    .add(R.id.container, ConfigureListFragment.newInstance())
                     .commit();
         }
     }

@@ -34,7 +34,7 @@ public class ShadowVPNService extends VpnService {
     public static final String EXTRA_VPN_CONCURRENCY = "extra_vpn_concurrency";
     public static final String EXTRA_VPN_BYPASS_CHINA_ROUTES = "extra_vpn_bypass_china_routes";
 
-    private final IBinder mBinder = new ShadowVPNServiceBinder();
+    private IBinder mBinder = new ShadowVPNServiceBinder();
     private volatile Looper mServiceLooper;
     private volatile ServiceHandler mServiceHandler;
     private ShadowVPN mShadowVPN;
@@ -151,7 +151,7 @@ public class ShadowVPNService extends VpnService {
 
             try {
                 while ((line = reader.readLine()) != null) {
-                    final String[] route = line.split("/");
+                    String[] route = line.split("/");
 
                     if (route.length == 2) {
                         builder.addRoute(route[0], Integer.parseInt(route[1]));
