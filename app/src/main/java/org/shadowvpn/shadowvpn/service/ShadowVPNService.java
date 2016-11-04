@@ -47,7 +47,6 @@ public class ShadowVPNService extends VpnService {
         @Override
         public void handleMessage(Message msg) {
             ShadowVPNService.this.onHandleIntent((Intent) msg.obj);
-
             ShadowVPNService.this.stopSelf(msg.arg1);
         }
     }
@@ -61,7 +60,6 @@ public class ShadowVPNService extends VpnService {
         protected boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
             if (code == IBinder.LAST_CALL_TRANSACTION) {
                 ShadowVPNService.this.onRevoke();
-
                 return true;
             }
 
